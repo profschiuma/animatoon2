@@ -98,9 +98,7 @@
     #stage-music-badge span:nth-child(2){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .badge-clear-music{background:#fff;color:var(--red-d);border:0;border-radius:50%;width:32px;height:32px;font-size:1rem;font-weight:700;cursor:pointer;flex-shrink:0}
 
-    #stage-control-strip{height:76px;display:flex;align-items:center;justify-content:space-between;width:100%;gap:12px;flex-shrink:0}
-    #active-char-panel{display:none;align-items:center;gap:10px;background:#fff;border:3px solid var(--orange);border-radius:40px;padding:5px 6px 5px 6px}
-    #active-char-panel.show{display:flex}
+    #stage-control-strip{height:64px;display:flex;align-items:center;justify-content:space-between;width:100%;gap:12px;flex-shrink:0}
     .btn-pup{min-height:56px;border:3px dashed var(--cat);border-radius:18px;background:#fff;color:var(--cat-d);font-weight:700;font-size:1.05rem;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
     .btn-pup .ico{width:1.8rem;height:1.8rem}
     .btn-pup.solid{background:var(--cat);color:#fff;border:3px solid var(--cat);box-shadow:0 5px 0 var(--cat-d)}
@@ -110,18 +108,6 @@
     .btn-primary.orange{background:var(--orange);box-shadow:0 5px 0 var(--orange-d)}
     #pup-sheet-print{display:none}
     @media print{body.printing-sheet>*:not(#pup-sheet-print){display:none!important}body.printing-sheet #pup-sheet-print{display:block!important;width:210mm;height:297mm}@page{size:A4;margin:0}}
-    #pup-actions{display:flex;gap:8px}
-    .pup-btn{width:56px;height:56px;border-radius:50%;border:3px solid var(--orange);background:var(--orange-l);color:var(--orange-d);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 3px 0 var(--orange-d)}
-    .pup-btn:active{transform:translateY(3px);box-shadow:none}
-    .pup-btn .ico{width:2rem;height:2rem}
-    .pup-btn.on{background:var(--orange);color:#fff}
-    .pup-btn.more{background:#fff;border-style:dashed}
-    #pup-actions{flex-wrap:wrap}
-    #pup-act-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px;margin:8px 0 4px}
-    .pup-act{min-height:96px;border-radius:18px;border:3px solid var(--orange);background:var(--orange-l);color:var(--orange-d);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;font-weight:700;font-size:1rem;padding:8px 4px;box-shadow:0 4px 0 var(--orange-d);font-family:inherit}
-    .pup-act:active{transform:translateY(4px);box-shadow:none}
-    .pup-act.on{background:var(--orange);color:#fff}
-    .pup-act .ico{width:2.6rem;height:2.6rem}
     #active-char-panel.pup #active-char-name{display:none}
     #active-char-thumb{width:56px;height:56px;border-radius:50%;object-fit:contain;background:var(--orange-l)}
     #active-char-name{font-size:1.05rem;font-weight:600;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -368,6 +354,46 @@
     .sfx-btn:active,.sfx-btn.hit{transform:translateY(2px);box-shadow:0 1px 0 var(--pink);background:var(--pink);color:#fff}
     .sfx-btn:active .ico,.sfx-btn.hit .ico{color:#fff}
     @media (max-width:1500px),(max-height:760px){.sfx-title span{display:none}}
+
+    /* ===== v19: barra del personaggio sotto il palco (azioni) e suoni scelti accanto a Registra ===== */
+    #active-char-panel{display:flex;align-items:center;gap:8px;width:100%;height:56px;flex-shrink:0;background:var(--orange-l);border:3px solid var(--orange);border-radius:34px;padding:0 8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+    #active-char-panel.show{background:#fff}
+    #active-char-panel>*{flex-shrink:0}
+    #active-char-thumb{width:40px;height:40px}
+    #active-char-name{font-size:.95rem;max-width:110px}
+    #pup-actions{display:contents}
+    #char-bar-hint{display:none;color:var(--orange-d);font-weight:700;font-size:1rem;margin:0 auto}
+    #active-char-panel:not(.show) #char-bar-hint{display:block}
+    #active-char-panel:not(.show)>:not(#char-bar-hint){display:none}
+    #active-char-panel .btn-char-remove{min-height:40px;padding:0 12px;font-size:.9rem;margin-left:auto}
+    .act-chip{min-height:44px;min-width:54px;border:0;border-radius:16px;background:#fff;color:var(--orange-d);font-weight:700;font-size:.66rem;line-height:1.05;padding:0 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;box-shadow:0 3px 0 var(--orange);font-family:inherit;flex-shrink:0;touch-action:manipulation;border:2px solid var(--orange-l)}
+    .act-chip .ico{width:1.45rem;height:1.45rem;color:var(--orange)}
+    .act-chip:active,.act-chip.hit,.act-chip.on{transform:translateY(2px);box-shadow:0 1px 0 var(--orange);background:var(--orange);color:#fff}
+    .act-chip:active .ico,.act-chip.hit .ico,.act-chip.on .ico{color:#fff}
+    .act-chip.add{box-shadow:none;border:3px dashed var(--orange);background:transparent}
+    .btn-focus{min-height:48px;padding:0 14px;font-size:.95rem;box-shadow:0 3px 0 var(--line)}
+    .btn-focus .ico{width:1.4rem;height:1.4rem}
+    @media (max-width:1180px){body:not(.focus) .btn-focus span{display:none!important}body:not(.focus) .btn-focus{padding:0 12px}}
+    #sfx-bar{flex:1 1 0;min-width:0;width:auto;height:56px;gap:6px;padding:0 8px}
+    #sfx-builtin{display:contents}
+    .sfx-title span{display:none}
+    .sfx-title{padding-right:0}
+    .sfx-btn{min-height:44px;min-width:54px;border-radius:16px;font-size:.66rem;padding:0 6px}
+    .sfx-btn .ico{width:1.45rem;height:1.45rem}
+    .sfx-btn.add-mine{border-width:3px}
+    .btn-stage-action{min-height:56px;padding:0 22px;font-size:1.2rem;gap:8px;border-radius:30px}
+    .btn-stage-action .ic{font-size:1.5rem}
+    #btn-main-rec{box-shadow:0 5px 0 var(--red-d)}
+    .rec-actions-group{gap:8px;flex-shrink:0}
+    .pick-hint{margin:0;color:var(--muted);font-weight:600}
+    .pick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px;margin:4px 0}
+    .pup-act{position:relative;min-height:92px;border-radius:18px;border:3px solid var(--cat);background:#fff;color:var(--cat-d);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;font-weight:700;font-size:1rem;padding:8px 4px;box-shadow:0 4px 0 var(--cat-d);font-family:inherit}
+    .pup-act:active{transform:translateY(4px);box-shadow:none}
+    .pup-act.on{background:var(--cat-l)}
+    .pup-act .ico{width:2.5rem;height:2.5rem;color:var(--cat)}
+    .pup-act .ck{display:none;position:absolute;top:-8px;right:-8px;width:28px;height:28px;border-radius:50%;background:var(--cat);color:#fff;align-items:center;justify-content:center}
+    .pup-act.on .ck{display:flex}
+    .pup-act .ck .ico{width:1.1rem;height:1.1rem;color:#fff;stroke-width:6}
     #rec-timer{font-variant-numeric:tabular-nums;background:rgba(255,255,255,.22);border-radius:14px;padding:0 8px}
     #total-time{position:sticky;left:0;z-index:12;flex-shrink:0;display:flex;align-items:center;gap:8px;background:#fff;border:3px solid var(--blue);border-radius:20px;padding:6px 14px;color:var(--blue-d);font-weight:700;margin-right:4px;box-shadow:8px 0 8px -4px var(--blue-l)}
     #total-time .ico{width:1.7rem;height:1.7rem}
@@ -470,27 +496,21 @@
         <canvas id="stage" width="1040" height="527"></canvas>
       </div>
 
-      <div id="sfx-bar" data-c="sfx" role="toolbar">
-        <span class="sfx-title"><svg class="ico" aria-hidden="true"><use href="#i-sfx"/></svg><span>Effetti</span></span>
-        <button class="sfx-btn add-mine" id="btn-add-sound" title="Il rumorista" onclick="openSfxRecorder()"><svg class="ico" aria-hidden="true"><use href="#i-sfx-mine"/></svg><span>Rumorista</span></button>
-        <button class="sfx-btn" title="Boing" onpointerdown="sfxTap('boing',event)" onkeydown="if(event.key==='Enter'||event.key===' ')sfxTap('boing',event)"><svg class="ico" aria-hidden="true"><use href="#i-sfx-boing"/></svg><span>Boing</span></button>
-        <button class="sfx-btn" title="Clap" onpointerdown="sfxTap('clap',event)" onkeydown="if(event.key==='Enter'||event.key===' ')sfxTap('clap',event)"><svg class="ico" aria-hidden="true"><use href="#i-sfx-clap"/></svg><span>Clap</span></button>
-        <button class="sfx-btn" title="Applauso" onpointerdown="sfxTap('applauso',event)" onkeydown="if(event.key==='Enter'||event.key===' ')sfxTap('applauso',event)"><svg class="ico" aria-hidden="true"><use href="#i-sfx-applause"/></svg><span>Applauso</span></button>
-        <button class="sfx-btn" title="Pop" onpointerdown="sfxTap('pop',event)" onkeydown="if(event.key==='Enter'||event.key===' ')sfxTap('pop',event)"><svg class="ico" aria-hidden="true"><use href="#i-sfx-pop"/></svg><span>Pop</span></button>
-        <button class="sfx-btn" title="Ding" onpointerdown="sfxTap('ding',event)" onkeydown="if(event.key==='Enter'||event.key===' ')sfxTap('ding',event)"><svg class="ico" aria-hidden="true"><use href="#i-sfx-ding"/></svg><span>Ding</span></button>
-        <button class="sfx-btn" title="Whoosh" onpointerdown="sfxTap('whoosh',event)" onkeydown="if(event.key==='Enter'||event.key===' ')sfxTap('whoosh',event)"><svg class="ico" aria-hidden="true"><use href="#i-sfx-whoosh"/></svg><span>Whoosh</span></button>
-        <button class="sfx-btn" title="Passi" onpointerdown="sfxTap('passi',event)" onkeydown="if(event.key==='Enter'||event.key===' ')sfxTap('passi',event)"><svg class="ico" aria-hidden="true"><use href="#i-sfx-steps"/></svg><span>Passi</span></button>
-        <button class="sfx-btn" title="Tuono" onpointerdown="sfxTap('tuono',event)" onkeydown="if(event.key==='Enter'||event.key===' ')sfxTap('tuono',event)"><svg class="ico" aria-hidden="true"><use href="#i-sfx-thunder"/></svg><span>Tuono</span></button>
-        <span id="sfx-custom"></span>
+      <div id="active-char-panel" data-c="char" role="toolbar">
+        <img id="active-char-thumb" src="" alt="Personaggio">
+        <span id="active-char-name">Personaggio</span>
+        <div id="pup-actions"></div>
+        <span id="char-bar-hint">Tocca un personaggio sul palco</span>
+        <button class="btn-char-remove" onclick="deleteSelectedCharacter()"><span><svg class="ico" aria-hidden="true"><use href="#i-trash"/></svg></span> Togli</button>
       </div>
 
       <div id="stage-control-strip">
         <button id="btn-focus" class="btn-focus" onclick="toggleFocus()"><svg class="ico fi-off" aria-hidden="true"><use href="#i-expand"/></svg><svg class="ico fi-on" aria-hidden="true"><use href="#i-shrink"/></svg><span class="fl-off">Schermo intero</span><span class="fl-on">Riduci</span></button>
-        <div id="active-char-panel">
-          <img id="active-char-thumb" src="" alt="Personaggio">
-          <span id="active-char-name">Personaggio</span>
-          <div id="pup-actions" style="display:none"></div>
-          <button class="btn-char-remove" onclick="deleteSelectedCharacter()"><span><svg class="ico" aria-hidden="true"><use href="#i-trash"/></svg></span> Togli</button>
+        <div id="sfx-bar" data-c="sfx" role="toolbar">
+          <span class="sfx-title"><svg class="ico" aria-hidden="true"><use href="#i-sfx"/></svg><span>Effetti</span></span>
+          <span id="sfx-builtin"></span>
+          <span id="sfx-custom"></span>
+          <button class="sfx-btn add-mine" id="btn-add-sound" title="Aggiungi suoni" onclick="openSfxPicker()"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg><span>Suoni</span></button>
         </div>
         <div class="rec-actions-group">
           <button id="btn-re-record" class="btn-stage-action" onclick="confirmReRecord()"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-redo"/></svg></span> Rifai</button>
@@ -594,8 +614,16 @@
   <img id="pup-sheet-print" alt="">
   <div id="pup-act-modal" class="modal-overlay" onclick="if(event.target===this)closePupActs()"><div class="modal-box" data-c="char" style="max-width:600px">
     <h3 style="color: var(--orange-d);"><svg class="ico" aria-hidden="true"><use href="#i-char"/></svg> Azioni</h3>
-    <div id="pup-act-grid"></div>
-    <div class="modal-actions"><button class="btn-secondary" onclick="closePupActs()">Chiudi</button></div>
+    <p class="pick-hint">Scegli le azioni che ti servono: le trovi sotto il palco.</p>
+    <div id="pup-act-grid" class="pick-grid"></div>
+    <div class="modal-actions"><button class="btn-primary orange" onclick="closePupActs()">Fatto</button></div>
+  </div></div>
+  <div id="sfx-pick-modal" class="modal-overlay" onclick="if(event.target===this)closeSfxPicker()"><div class="modal-box" data-c="sfx" style="max-width:600px">
+    <h3 style="color: var(--pink-d);"><svg class="ico" aria-hidden="true"><use href="#i-sfx"/></svg> Suoni</h3>
+    <p class="pick-hint">Scegli i suoni che ti servono: li trovi sotto il palco.</p>
+    <div id="sfx-pick-grid" class="pick-grid"></div>
+    <button class="btn-secondary" style="display:flex;align-items:center;justify-content:center;gap:8px" onclick="closeSfxPicker();openSfxRecorder()"><svg class="ico" aria-hidden="true" style="width:1.6rem;height:1.6rem;color:var(--pink)"><use href="#i-sfx-mine"/></svg> Il rumorista</button>
+    <div class="modal-actions"><button class="btn-primary" style="background:var(--pink);box-shadow:0 5px 0 var(--pink-d)" onclick="closeSfxPicker()">Fatto</button></div>
   </div></div>
 
   <div id="cam-modal" class="modal-overlay" data-t="character"><div class="modal-box" style="max-width: 90vw; background: var(--ink); color: white;">
@@ -839,6 +867,7 @@ I18N.push(...[["Musiche online", "Online music", "Musiques en ligne", "Música e
 I18N.push(...[["Salta", "Jump", "Saute", "Salta", "Spring"], ["Saluta", "Wave", "Salue", "Saluda", "Winke"], ["Siedi", "Sit down", "Assieds-toi", "Siéntate", "Hinsetzen"], ["Alzati", "Stand up", "Lève-toi", "Levántate", "Aufstehen"], ["Pupazzo di prova di lato", "Test puppet, side view", "Pantin de test de profil", "Marioneta de prueba de lado", "Testpuppe von der Seite"], ["Pupazzo di prova di fronte", "Test puppet, front view", "Pantin de test de face", "Marioneta de prueba de frente", "Testpuppe von vorn"], ["Il mio pupazzo", "My puppet", "Mon pantin", "Mi marioneta", "Meine Puppe"], ["Pupazzo {n}", "Puppet {n}", "Pantin {n}", "Marioneta {n}", "Puppe {n}"], ["Evviva", "Hooray", "Hourra", "¡Hurra!", "Hurra"], ["Di lato", "Side view", "De profil", "De lado", "Von der Seite"], ["Di fronte", "Front view", "De face", "De frente", "Von vorn"], ["Stampa la scheda", "Print the sheet", "Imprime la fiche", "Imprime la ficha", "Blatt drucken"], ["Stampa", "Print", "Imprimer", "Imprimir", "Drucken"], ["Scarica l'immagine", "Download the image", "Télécharger l'image", "Descargar la imagen", "Bild herunterladen"], ["Crea il pupazzo", "Create the puppet", "Créer le pantin", "Crear la marioneta", "Puppe erstellen"], ["Come si chiama questo pupazzo?", "What is this puppet called?", "Comment s'appelle ce pantin ?", "¿Cómo se llama esta marioneta?", "Wie heißt diese Puppe?"], ["Sto leggendo la scheda...", "Reading the sheet...", "Je lis la fiche...", "Leyendo la ficha...", "Ich lese das Blatt..."], ["Inquadra tutta la scheda", "Frame the whole sheet", "Cadre toute la fiche", "Encuadra toda la ficha", "Das ganze Blatt aufnehmen"], ["Non vedo bene i 4 segni neri agli angoli della scheda. Prova con più luce e inquadra tutto il foglio!", "I can't see the 4 black marks in the corners of the sheet. Try with more light and frame the whole page!", "Je ne vois pas bien les 4 repères noirs aux coins de la fiche. Essaie avec plus de lumière et cadre toute la page !", "No veo bien las 4 marcas negras de las esquinas de la ficha. ¡Prueba con más luz y encuadra toda la hoja!", "Ich sehe die 4 schwarzen Zeichen an den Ecken nicht gut. Versuche es mit mehr Licht und fotografiere das ganze Blatt!"], ["Mancano queste parti: {p}. Disegnale e rifai la foto!", "These parts are missing: {p}. Draw them and take the photo again!", "Il manque ces parties : {p}. Dessine-les et refais la photo !", "Faltan estas partes: {p}. ¡Dibújalas y repite la foto!", "Diese Teile fehlen: {p}. Zeichne sie und fotografiere noch einmal!"], ["Bacino", "Pelvis", "Bassin", "Pelvis", "Becken"], ["Busto", "Torso", "Buste", "Torso", "Oberkörper"], ["Testa", "Head", "Tête", "Cabeza", "Kopf"], ["Braccio", "Upper arm", "Bras", "Brazo", "Oberarm"], ["Avambraccio", "Forearm", "Avant-bras", "Antebrazo", "Unterarm"], ["Coscia", "Thigh", "Cuisse", "Muslo", "Oberschenkel"], ["Gamba", "Lower leg", "Jambe", "Pierna", "Unterschenkel"], ["Piede", "Foot", "Pied", "Pie", "Fuß"], ["guarda a destra", "looks right", "regarde à droite", "mira a la derecha", "schaut nach rechts"], ["la punta a destra", "toe points right", "la pointe à droite", "la punta a la derecha", "Spitze nach rechts"], ["ti guarda", "looks at you", "te regarde", "te mira", "schaut dich an"], ["visto da davanti", "seen from the front", "vu de face", "visto de frente", "von vorn gesehen"], ["Disegna ogni parte dentro il suo riquadro: grande e con un contorno scuro.", "Draw each part inside its box: big and with a dark outline.", "Dessine chaque partie dans son cadre : grande et avec un contour foncé.", "Dibuja cada parte dentro de su recuadro: grande y con un contorno oscuro.", "Zeichne jedes Teil in seinen Rahmen: groß und mit dunklem Umriss."], ["Il puntino pieno è l’articolazione, il cerchietto è dove si attacca un’altra parte.", "The filled dot is the joint, the small circle is where another part attaches.", "Le point plein est l’articulation, le petit cercle est où s’attache une autre partie.", "El punto lleno es la articulación, el circulito es donde se une otra parte.", "Der volle Punkt ist das Gelenk, der kleine Kreis ist, wo ein anderes Teil ansetzt."], ["Braccio, gamba e piede si disegnano una volta sola: l’altro lato è automatico.", "Draw arm, leg and foot only once: the other side is automatic.", "Dessine bras, jambe et pied une seule fois : l’autre côté est automatique.", "Dibuja brazo, pierna y pie una sola vez: el otro lado es automático.", "Arm, Bein und Fuß zeichnest du nur einmal: die andere Seite entsteht automatisch."], ["Poi fotografa tutto il foglio, con i 4 segni neri ben visibili.", "Then photograph the whole page, with the 4 black marks clearly visible.", "Puis photographie toute la page, avec les 4 repères noirs bien visibles.", "Luego fotografía toda la hoja, con las 4 marcas negras bien visibles.", "Dann fotografiere das ganze Blatt, mit den 4 gut sichtbaren schwarzen Zeichen."]]);
 I18N.push(...[["Indica", "Point", "Montre", "Señala", "Zeig hin"], ["Applaudi", "Clap", "Applaudis", "Aplaude", "Klatsche"], ["Boh", "Shrug", "Bof", "Ni idea", "Keine Ahnung"], ["Inchino", "Bow", "Révérence", "Reverencia", "Verbeugung"], ["Cade", "Fall", "Tombe", "Cae", "Hinfallen"], ["Dorme", "Sleep", "Dors", "Duerme", "Schlafen"], ["Calcia", "Kick", "Tire", "Patea", "Schießen"], ["Lancia", "Throw", "Lance", "Lanza", "Wirf"], ["Spavento", "Scared", "Peur", "Susto", "Schreck"], ["Rabbia", "Angry", "Colère", "Rabia", "Wut"], ["Trema", "Shiver", "Tremble", "Tiembla", "Zittern"], ["Balla", "Dance", "Danse", "Baila", "Tanzen"], ["Di nascosto", "Sneak", "À pas de loup", "A escondidas", "Schleichen"], ["Fermati", "Stop", "Arrête-toi", "Para", "Stopp"], ["Altre azioni", "More actions", "Plus d'actions", "Más acciones", "Mehr Aktionen"], ["Azioni", "Actions", "Actions", "Acciones", "Aktionen"]]);
 I18N.push(...[["Cade indietro", "Fall back", "Tombe en arrière", "Cae hacia atrás", "Nach hinten fallen"], ["Cade avanti", "Fall forward", "Tombe en avant", "Cae hacia delante", "Nach vorn fallen"]]);
+I18N.push(...[["Tocca un personaggio sul palco", "Tap a character on the stage", "Touche un personnage sur la scène", "Toca un personaje del escenario", "Tippe eine Figur auf der Bühne an"], ["Suoni", "Sounds", "Sons", "Sonidos", "Töne"], ["Aggiungi suoni", "Add sounds", "Ajouter des sons", "Añadir sonidos", "Töne hinzufügen"], ["Aggiungi azioni", "Add actions", "Ajouter des actions", "Añadir acciones", "Aktionen hinzufügen"], ["Scegli le azioni che ti servono: le trovi sotto il palco.", "Pick the actions you need: you'll find them under the stage.", "Choisis les actions dont tu as besoin : elles sont sous la scène.", "Elige las acciones que necesitas: las encontrarás debajo del escenario.", "Wähle die Aktionen, die du brauchst: du findest sie unter der Bühne."], ["Scegli i suoni che ti servono: li trovi sotto il palco.", "Pick the sounds you need: you'll find them under the stage.", "Choisis les sons dont tu as besoin : ils sont sous la scène.", "Elige los sonidos que necesitas: los encontrarás debajo del escenario.", "Wähle die Töne, die du brauchst: du findest sie unter der Bühne."]]);
 const LANG_IDX = { it: 0, en: 1, fr: 2, es: 3, de: 4 };
 const I18N_MAP = new Map(I18N.map(r => [r[0], r]));
 let LANG = 'it';
@@ -902,6 +931,7 @@ function setLanguage(lang) {
   closeLangMenu();
   renameDefaults();
   translateStatic();
+  renderSfxBar();
   setRecLabel();
   renderActsUI(); renderLibraryUI(); updateSceneMusicUI(); updateStageRecordingCluster();
   selectCharacter(selectedChar);
@@ -2001,7 +2031,7 @@ function initLanguage() {
 
     // seduto/in piedi: ultimo comando 'sit'/'stand' con rampa lineare di PUP_SIT_MS
     // ---- stati che durano (siede, dorme, cade) e cicli (balla, di nascosto): l'ultimo comando vince, con dissolvenza dal precedente ----
-    const PUP_EXIT_MS = 500, PUP_CLIPS_VER = 3;
+    const PUP_EXIT_MS = 500, PUP_CLIPS_VER = 4;
     const pupIsHoldClip = cl => !!cl && (cl.role === 'state' || cl.role === 'mode');
     function pupHoldList(pp, anims, t) {         // comandi di stato fino a t, in ordine di tempo ('stand' = torna normale)
       const L = [];
@@ -2181,44 +2211,104 @@ function initLanguage() {
       updatePupButtons();
       drawScene(storyState.acts[storyState.currentAct]);
     }
+    // ---- scelte ricordate sul dispositivo (azioni nella barra, suoni nella riga di Registra) ----
+    function pupMemo() { return (window.__pupMem = window.__pupMem || {}); }
+    function pupLoad(key) { const m = pupMemo(); if (!(key in m)) { let v = null; try { v = JSON.parse(localStorage.getItem(key)); } catch (e) {} m[key] = v; } return m[key]; }
+    function pupSave(key, val) { pupMemo()[key] = val; try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
+    function pupViewOf(pp) { return (pp.spec && pp.spec.view) || 'side'; }
+    function pupActIds(pp) { return Object.keys(pp.clips).filter(i => pp.clips[i].icon && pp.clips[i].role !== 'aux'); }
+    function pupPins(pp) {                       // azioni nella barra: scelte salvate, altrimenti quelle predefinite del modello
+      const st = pupLoad('animatoon.pupPins') || {}, a = st[pupViewOf(pp)], ids = pupActIds(pp);
+      return Array.isArray(a) ? ids.filter(i => a.indexOf(i) >= 0) : ids.filter(i => pp.clips[i].quick);
+    }
+    function pupPinToggle(pp, id) {
+      const st = Object.assign({}, pupLoad('animatoon.pupPins') || {}), cur = pupPins(pp), k = cur.indexOf(id);
+      if (k >= 0) cur.splice(k, 1); else cur.push(id);
+      st[pupViewOf(pp)] = cur; pupSave('animatoon.pupPins', st);
+    }
+    function pupChip(cls, icon, label, title) {
+      const b = document.createElement('button');
+      b.className = cls; b.title = title || label;
+      b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#' + icon + '"/></svg><span></span>';
+      b.lastChild.textContent = label;
+      return b;
+    }
+
+    // ---- barra del personaggio: i gesti si toccano "al volo" (anche mentre si registra), come i rumori ----
     function updatePupButtons() {
       const box = document.getElementById('pup-actions'), panel = document.getElementById('active-char-panel');
       if (!box) return;
-      box.innerHTML = '';
       const c = selectedChar;
-      if (!c || !c.puppet) { panel.classList.remove('pup'); box.style.display = 'none'; return; }
-      panel.classList.add('pup'); box.style.display = 'flex';
-      const hold = pupHoldOf(c), pp = c.puppet;
-      const add = (icon, label, fn, cls) => {
-        const b = document.createElement('button');
-        b.className = 'pup-btn' + (cls ? ' ' + cls : ''); b.title = label; b.setAttribute('aria-label', label);
-        b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#' + icon + '"/></svg>';
-        b.onclick = fn;
-        box.appendChild(b);
-      };
-      let standShown = false;
-      Object.values(pp.clips).filter(cl => cl.quick).forEach(cl => {
-        if (pupIsHoldClip(cl) && hold === cl.id) { add('i-pup-stand', T('Alzati'), () => puppetAction(cl.id), 'on'); standShown = true; }
-        else add(cl.icon, T(cl.label), () => puppetAction(cl.id));
+      if (!c || !c.puppet) { panel.classList.remove('pup'); box.innerHTML = ''; box.dataset.key = ''; return; }
+      panel.classList.add('pup');
+      const pp = c.puppet, hold = pupHoldOf(c), pn = pupPins(pp), pins = (hold && pn.indexOf(hold) < 0) ? pn.concat(hold) : pn;   // se sta facendo qualcosa che dura e l'azione non è nella barra, il bottone per fermarla compare comunque
+      const key = c.id + '|' + pupViewOf(pp) + '|' + pins.join(',') + '|' + LANG;
+      if (box.dataset.key !== key) {
+        box.innerHTML = ''; box.dataset.key = key;
+        pins.forEach(id => {
+          const b = pupChip('act-chip', pp.clips[id].icon, T(pp.clips[id].label)); b.dataset.id = id;
+          b.onpointerdown = ev => { ev.preventDefault(); b.classList.add('hit'); setTimeout(() => b.classList.remove('hit'), 180); puppetAction(id); };
+          b.onkeydown = ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); puppetAction(id); } };
+          box.appendChild(b);
+        });
+        const more = pupChip('act-chip add', 'i-plus', T('Azioni'), T('Aggiungi azioni'));
+        more.onclick = openPupActs; box.appendChild(more);
+      }
+      box.querySelectorAll('.act-chip[data-id]').forEach(b => {
+        const cl = pp.clips[b.dataset.id], on = pupIsHoldClip(cl) && hold === cl.id;
+        b.classList.toggle('on', on);
+        b.querySelector('use').setAttribute('href', '#' + (on ? 'i-pup-stand' : cl.icon));
+        b.lastChild.textContent = T(on ? (cl.role === 'mode' ? 'Fermati' : 'Alzati') : cl.label);
       });
-      if (hold && !standShown) add('i-pup-stand', T(pp.clips[hold].role === 'mode' ? 'Fermati' : 'Alzati'), () => puppetAction(hold), 'on');
-      add('i-plus', T('Altre azioni'), openPupActs, 'more');
     }
-    // tavolozza di tutte le azioni (provvisoria: il modo definitivo di mostrarle si decide dopo)
-    function openPupActs() {
-      const c = selectedChar; if (!c || !c.puppet) return;
-      const hold = pupHoldOf(c), g = document.getElementById('pup-act-grid'); g.innerHTML = '';
-      Object.values(c.puppet.clips).filter(cl => cl.icon && cl.role !== 'aux').forEach(cl => {
-        const on = hold === cl.id, b = document.createElement('button'), sp = document.createElement('span');
-        b.className = 'pup-act' + (on ? ' on' : '');
-        b.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#' + (on ? 'i-pup-stand' : cl.icon) + '"/></svg>';
-        sp.textContent = T(on ? (cl.role === 'mode' ? 'Fermati' : 'Alzati') : cl.label); b.appendChild(sp);
-        b.onclick = () => { closePupActs(); puppetAction(cl.id); };
+    // finestra per scegliere quali azioni tenere nella barra
+    function renderPupPick(pp) {
+      const g = document.getElementById('pup-act-grid'), pins = pupPins(pp); g.innerHTML = '';
+      pupActIds(pp).forEach(id => {
+        const cl = pp.clips[id], b = pupChip('pup-act' + (pins.indexOf(id) >= 0 ? ' on' : ''), cl.icon, T(cl.label));
+        const ck = document.createElement('i'); ck.className = 'ck'; ck.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>'; b.appendChild(ck);
+        b.onclick = () => { pupPinToggle(pp, id); renderPupPick(pp); updatePupButtons(); };
         g.appendChild(b);
       });
+    }
+    function openPupActs() {
+      const c = selectedChar; if (!c || !c.puppet || isRecording || isPreviewPlaying) return;
+      renderPupPick(c.puppet);
       document.getElementById('pup-act-modal').classList.add('active');
     }
     function closePupActs() { document.getElementById('pup-act-modal').classList.remove('active'); }
+
+    // ---- suoni: nella riga di Registra ci sono solo quelli scelti (più quelli del rumorista) ----
+    function sfxList() { return [['boing', 'i-sfx-boing', 'Boing'], ['clap', 'i-sfx-clap', 'Clap'], ['applauso', 'i-sfx-applause', 'Applauso'], ['pop', 'i-sfx-pop', 'Pop'], ['ding', 'i-sfx-ding', 'Ding'], ['whoosh', 'i-sfx-whoosh', 'Whoosh'], ['passi', 'i-sfx-steps', 'Passi'], ['tuono', 'i-sfx-thunder', 'Tuono']]; }
+    function sfxSel() { const a = pupLoad('animatoon.sfxSel'); return Array.isArray(a) ? a : ['boing', 'clap', 'applauso', 'whoosh']; }
+    function renderSfxBar() {
+      const box = document.getElementById('sfx-builtin'); if (!box) return;
+      box.innerHTML = '';
+      const sel = sfxSel();
+      sfxList().filter(x => sel.indexOf(x[0]) >= 0).forEach(x => {
+        const b = pupChip('sfx-btn', x[1], T(x[2]));
+        b.onpointerdown = ev => sfxTap(x[0], ev);
+        b.onkeydown = ev => { if (ev.key === 'Enter' || ev.key === ' ') sfxTap(x[0], ev); };
+        box.appendChild(b);
+      });
+      const add = document.getElementById('btn-add-sound'); if (add) add.title = T('Aggiungi suoni');
+    }
+    function renderSfxPick() {
+      const g = document.getElementById('sfx-pick-grid'), sel = sfxSel(); g.innerHTML = '';
+      sfxList().forEach(x => {
+        const on = sel.indexOf(x[0]) >= 0, b = pupChip('pup-act' + (on ? ' on' : ''), x[1], T(x[2]));
+        const ck = document.createElement('i'); ck.className = 'ck'; ck.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>'; b.appendChild(ck);
+        b.onclick = () => {
+          const cur = sfxSel().slice(), k = cur.indexOf(x[0]);
+          if (k >= 0) cur.splice(k, 1); else { cur.push(x[0]); const ac = getSfxCtx(); if (ac) playSfx(x[0], ac, ac.destination, ac.currentTime + 0.01); }
+          pupSave('animatoon.sfxSel', sfxList().map(y => y[0]).filter(i => cur.indexOf(i) >= 0));
+          renderSfxPick(); renderSfxBar();
+        };
+        g.appendChild(b);
+      });
+    }
+    function openSfxPicker() { if (isRecording || isPreviewPlaying) return; renderSfxPick(); document.getElementById('sfx-pick-modal').classList.add('active'); }
+    function closeSfxPicker() { document.getElementById('sfx-pick-modal').classList.remove('active'); }
 
     // ---- pupazzo di prova, disegnato dal programma (stessa strada di un pupazzo caricato da file) ----
     function pupPaintPiece(id, w, h) {
@@ -2299,7 +2389,7 @@ function initLanguage() {
           S(1, { hip: -90, thighN: 2, shinN: 4, thighF: 4, shinF: 6, armUpN: 8, armLowN: -6, armUpF: 12, armLowF: -4 }, { gl: 1 })
         ] },
         // cade in avanti: inciampa, si tende verso terra con le braccia e resta a pancia in giù
-        { id: 'fallf', role: 'state', lock: true, exit: 800, enter: 150, dur: 1300, label: 'Cade avanti', icon: 'i-pup-fallf', keys: [
+        { id: 'fallf', role: 'state', lock: true, exit: 800, enter: 150, dur: 1300, label: 'Cade avanti', icon: 'i-pup-fallf', quick: true, keys: [
           S(0, {}, { gl: 1 }),
           S(0.15, { hip: 6, torso: 8, head: -6, armUpN: -40, armUpF: -50, armLowN: -20, armLowF: -20, thighN: -28, shinN: 30, thighF: 10, shinF: 8 }, { gl: 1 }),
           S(0.38, { hip: 52, torso: 6, head: -24, armUpN: -135, armUpF: -145, armLowN: -10, armLowF: -10, thighN: -18, shinN: 40, thighF: 10, shinF: 12 }, { gl: 0, dy: -0.05, dx: 0.03 }),
@@ -2320,7 +2410,7 @@ function initLanguage() {
         ] },
         { id: 'wave', role: 'oneshot', dur: 1900, label: 'Saluta', icon: 'i-pup-wave', quick: true,
           keys: pupSample(16, u => ({ a: { armUpN: -150, armLowN: -32 + 28 * Math.sin(u * 2 * Math.PI * 4), head: -4 } })) },
-        { id: 'point', role: 'oneshot', dur: 1700, label: 'Indica', icon: 'i-pup-point', keys: [
+        { id: 'point', role: 'oneshot', dur: 1700, label: 'Indica', icon: 'i-pup-point', quick: true, keys: [
           S(0, {}), S(0.2, { armUpN: -86, armLowN: -3, torso: 3, head: 2 }), S(0.34, { armUpN: -93, armLowN: -2, torso: 4, head: 3 }),
           S(0.48, { armUpN: -86, armLowN: -3, torso: 3, head: 2 }), S(0.78, { armUpN: -86, armLowN: -3, torso: 3, head: 2 }), S(1, {})
         ] },
@@ -2358,7 +2448,7 @@ function initLanguage() {
         { id: 'tremble', role: 'oneshot', dur: 1200, label: 'Trema', icon: 'i-pup-tremble',
           keys: pupSample(48, u => { const e = pupEnv(u), o = Math.sin(u * 2 * Math.PI * 9) * e, o2 = Math.sin(u * 2 * Math.PI * 9 + 1.3) * e;
             return { dx: 0.012 * o, a: Object.assign({}, R, { torso: 5 * o, head: 7 * o2, armUpN: -4 + 11 * o, armUpF: 3 - 11 * o2, armLowN: -10 + 10 * o2, armLowF: -8 - 10 * o, thighN: 3 * o, thighF: -3 * o2, shinN: 3 + 9 * (0.5 + 0.5 * o), shinF: 3 + 9 * (0.5 + 0.5 * o2) }) }; }) },
-        { id: 'dance', role: 'mode', loop: true, dur: 1200, label: 'Balla', icon: 'i-pup-dance',
+        { id: 'dance', role: 'mode', loop: true, dur: 1200, label: 'Balla', icon: 'i-pup-dance', quick: true,
           keys: pupSample(12, u => { const x = u * 2 * Math.PI, k = 38 * (0.5 - 0.5 * Math.cos(2 * x)), s = Math.sin(x);
             return { gl: 1, dx: 0, dy: 0, a: { thighN: -0.6 * k, shinN: 3 + k, footN: -0.4 * k, thighF: -0.6 * k, shinF: 3 + k, footF: -0.4 * k,
               armUpN: -75 - 55 * s, armLowN: -35 - 15 * s, armUpF: -75 + 55 * s, armLowF: -35 + 15 * s, torso: 5 * s, head: -5 * s, hip: 3 * s } }; }, true) },
@@ -2455,7 +2545,7 @@ function initLanguage() {
         { id: 'walk', role: 'walk', loop: true, label: 'Cammina', keys: pupFrontCycle(walk) },
         { id: 'run', role: 'run', loop: true, label: 'Corre', keys: pupFrontCycle(run) },
         { id: 'sleep', role: 'state', lock: true, exit: 800, enter: 900, label: 'Dorme', icon: 'i-pup-sleep', keys: [F(0, { hip: 90, thighR: -3, shinR: 3, thighL: 3, shinL: -3, armUpR: -10, armUpL: 12 }, { gl: 1, dx: 0, dy: 0 })] },
-        { id: 'fall', role: 'state', lock: true, exit: 800, enter: 150, dur: 1300, label: 'Cade', icon: 'i-pup-fall', keys: [
+        { id: 'fall', role: 'state', lock: true, exit: 800, enter: 150, dur: 1300, label: 'Cade', icon: 'i-pup-fall', quick: true, keys: [
           F(0, {}, { gl: 1 }),
           F(0.16, { hip: 8, torso: 8, head: 8, armUpR: -85, armUpL: 75, armLowR: -10, armLowL: 10 }, { gl: 1 }),
           F(0.38, { hip: 50, torso: 8, head: 10, armUpR: -150, armUpL: 140, thighR: -30, shinR: 30, thighL: 20, shinL: -25 }, { gl: 0, dy: -0.06 }),
@@ -2478,7 +2568,7 @@ function initLanguage() {
           keys: pupSample(16, u => ({ a: { armUpR: -150, armLowR: 8 + 30 * Math.sin(u * 2 * Math.PI * 4), head: 4 } })) },
         { id: 'cheer', role: 'oneshot', dur: 1500, label: 'Evviva', icon: 'i-star', quick: true,
           keys: pupSample(24, u => { const s = Math.sin(u * 2 * Math.PI * 3); return { dy: -0.045 * Math.abs(s), a: { armUpR: -158 + 10 * s, armLowR: 6, armUpL: 158 - 10 * s, armLowL: -6, head: 0 } }; }) },
-        { id: 'point', role: 'oneshot', dur: 1700, label: 'Indica', icon: 'i-pup-point', keys: [
+        { id: 'point', role: 'oneshot', dur: 1700, label: 'Indica', icon: 'i-pup-point', quick: true, keys: [
           F(0, {}), F(0.2, { armUpR: -88, armLowR: -2, torso: 3, head: 4 }), F(0.34, { armUpR: -94, armLowR: -2, torso: 4, head: 5 }),
           F(0.48, { armUpR: -88, armLowR: -2, torso: 3, head: 4 }), F(0.78, { armUpR: -88, armLowR: -2, torso: 3, head: 4 }), F(1, {})
         ] },
@@ -2517,7 +2607,7 @@ function initLanguage() {
         { id: 'tremble', role: 'oneshot', dur: 1200, label: 'Trema', icon: 'i-pup-tremble',
           keys: pupSample(48, u => { const e = pupEnv(u), o = Math.sin(u * 2 * Math.PI * 9) * e, o2 = Math.sin(u * 2 * Math.PI * 9 + 1.3) * e;
             return { dx: 0.012 * o, a: Object.assign({}, R, { torso: 5 * o, head: 7 * o2, armUpR: -6 + 11 * o, armUpL: 6 - 11 * o2, armLowR: 3 + 9 * o2, armLowL: -3 - 9 * o, thighR: -3 * o, thighL: 3 * o2, shinR: 5 * (0.5 + 0.5 * o), shinL: -5 * (0.5 + 0.5 * o2) }) }; }) },
-        { id: 'dance', role: 'mode', loop: true, dur: 1200, label: 'Balla', icon: 'i-pup-dance',
+        { id: 'dance', role: 'mode', loop: true, dur: 1200, label: 'Balla', icon: 'i-pup-dance', quick: true,
           keys: pupSample(16, u => { const x = u * 2 * Math.PI, s = Math.sin(x), s2 = Math.sin(2 * x), lR = Math.max(0, s2), lL = Math.max(0, -s2);
             return { gl: 1, dx: 0, dy: 0, a: { thighR: -14 * lR, shinR: 35 * lR, footR: -0.9 * 21 * lR, thighL: 14 * lL, shinL: -35 * lL, footL: 0.9 * 21 * lL,
               armUpR: -(70 + 60 * s), armLowR: 15 + 10 * s, armUpL: 70 - 60 * s, armLowL: -(15 - 10 * s), torso: 5 * s, head: -4 * s, hip: 2 * s } }; }, true) },
