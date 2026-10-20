@@ -2987,6 +2987,11 @@ function initLanguage() {
       if (spec && spec.view === 'free' && spec.free && (spec.clipsVer || 0) < PUP_CLIPS_VER) {
         spec.clips = pupFreeClips(spec).concat(spec.custom || []); spec.loco = pupFreeLoco(spec); spec.clipsVer = PUP_CLIPS_VER;
       }
+      if (spec && spec.view === 'free' && spec.free && spec.free.kind === 'person' && !spec.zArmBack) {
+        const mm = {}; (spec.free.meta || []).forEach(m => { mm[m.id] = m; });
+        spec.nodes.forEach(n => { const m = mm[n.id]; if (m && m.role === 'braccio' && m.behind && n.z >= 2 && n.z < 3) n.z -= 1; });
+        spec.zArmBack = 1;
+      }
       if (spec && spec.view && PUP_TPL[spec.view] && (spec.clipsVer || 0) < PUP_CLIPS_VER) {
         spec.clips = PUP_TPL[spec.view].clips(); spec.clipsVer = PUP_CLIPS_VER;
       }
@@ -4426,7 +4431,7 @@ function initLanguage() {
         const par = geo[pid] || body, bh = behindOf(p), d = depthOf(p);
         let cap; { const dsc = pid === p.parent && !E.noArcs ? pedJointDisc(E, p) : null; cap = dsc ? dsc.cap : null; }      // arco che chiude lo snodo quando si piega
         nodes.push({ id: p.id, parent: pid, ax: (p.pivot[0] - par.x) / par.w, ay: (p.pivot[1] - par.y) / par.h, piece: p.id, px: (p.pivot[0] - pc.x) / pc.w, py: (p.pivot[1] - pc.y) / pc.h,
-          z: (p.role === 'testa' ? 9 : bh ? 2 : (E.kind === 'person' && p.role === 'braccio') ? 10 : 6) + d * 0.1 + k * 0.001, foot: p.role === 'zampa', ng: !!PED_NG[p.role], dark: bh ? 0.22 : undefined, cap: cap || undefined });
+          z: (p.role === 'testa' ? 9 : bh ? (E.kind === 'person' && p.role === 'braccio' ? 1 : 2) : (E.kind === 'person' && p.role === 'braccio') ? 10 : 6) + d * 0.1 + k * 0.001, foot: p.role === 'zampa', ng: !!PED_NG[p.role], dark: bh ? 0.22 : undefined, cap: cap || undefined });
         // dati per i movimenti: centro, distanza massima dall'attacco
         let far = 0, m = p._m; for (let i = 0; i < N; i += 3) if (m[i]) { const x = i % W, y = (i / W) | 0, dd = Math.hypot(x - p.pivot[0], y - p.pivot[1]); if (dd > far) far = dd; }
         let sx = 0, sy = 0, cn = 0; for (let i = 0; i < N; i += 2) if (m[i]) { sx += i % W; sy += (i / W) | 0; cn++; }
@@ -4443,7 +4448,7 @@ function initLanguage() {
         const pk = (E.clones || []).find(z => z.id === cpar), par = geo[pk ? pk.of : cpar] || body, sn = nodes.find(n => n.id === sp.id), sm = meta.find(m => m.id === sp.id);
         if (!sn || !sm) { cdrop[cl.id] = cl.parent; return; }
         nodes.push({ id: cl.id, parent: cpar, ax: (sp.pivot[0] - par.x) / par.w, ay: (sp.pivot[1] - par.y) / par.h, piece: sp.id, px: sn.px, py: sn.py,
-          z: (sn.z >= 5 ? 2 + (sn.z - Math.floor(sn.z)) : sn.z) - 0.0004, foot: sn.foot, ng: sn.ng, dark: 0.22, cap: sn.cap });
+          z: (sn.z >= 10 ? 1 + (sn.z - Math.floor(sn.z)) : sn.z >= 5 ? 2 + (sn.z - Math.floor(sn.z)) : sn.z) - 0.0004, foot: sn.foot, ng: sn.ng, dark: 0.22, cap: sn.cap });
         meta.push(Object.assign({}, sm, { id: cl.id, parent: cpar, behind: true, pivot: sp.pivot.slice(), name: sm.name }));
       });
       // ingombro del disegno
@@ -10042,13 +10047,4 @@ function initLanguage() {
   window.closeEgg = function () { clearTimeout(timer); el('egg-modal').classList.remove('active'); };
   window.eggAnswer = function (yes) {
     el('egg-yes').classList.toggle('on', yes); el('egg-no').classList.toggle('on', !yes);
-    el('egg-ans').textContent = T(yes ? 'Evviva! Grazie, sono felicissima!' : 'Che peccato! Ci proverò ancora più forte.');
-    clearTimeout(timer); timer = setTimeout(closeEgg, 3200);
-  };
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && el('egg-modal').classList.contains('active')) closeEgg(); });
-  var logo = document.querySelector('.brand-logo');
-  if (logo) logo.addEventListener('click', openEgg);
-})();
-</script>
-</body>
-</html>
+    el('egg-ans').tex
